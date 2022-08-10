@@ -8,6 +8,7 @@ import datetime
 uc = Blueprint('user_controller', __name__)
 us = UserService()
 
+
 @uc.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST' and "user" not in session:

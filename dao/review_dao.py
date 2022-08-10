@@ -17,7 +17,7 @@ class ReviewDao:
 
 # Read
     def get_reviews(self, usn, isbn):
-        call = "SELECT * FROM reviews"
+        call = "SELECT * FROM reviews INNER JOIN books ON reviews.isbn = books.isbn"
         if usn:
             call = call + f" where usr = '{usn}'"
         if isbn:
@@ -29,7 +29,8 @@ class ReviewDao:
             with conn.cursor() as cur:
                 cur.execute(call)
                 for line in cur:
-                    rev = Review(line[0], line[2], line[1], line[3])
+                    rev = Review(line[0], line[6], line[5], line[2], line[1], line[3])
+                    print(rev.to_dict())
                     reviews.append(rev)
                 return reviews
 

@@ -6,8 +6,6 @@ from controller.review_controller import rc
 from controller.book_controller import bc
 
 
-
-
 if __name__ == '__main__':
     app = Flask(__name__)
     app.secret_key = 'hello'
@@ -21,4 +19,4 @@ if __name__ == '__main__':
 
     CORS(app)
     Session(app)
-    app.run(port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
