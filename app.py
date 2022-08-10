@@ -6,8 +6,6 @@ from controller.review_controller import rc
 from controller.book_controller import bc
 
 
-
-
 if __name__ == '__main__':
     app = Flask(__name__)
     app.secret_key = 'hello'
