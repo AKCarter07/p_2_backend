@@ -28,7 +28,7 @@ print(today)
 # rd.new_review(r1)
 
 # print(ud.get_all_usernames())
-# print(us.check_password('Bren', 'tabaxi'))
+print(us.check_password('Bren', 'tabaxi'))
 #
 # with psycopg.connect(host="database-1.ccqnc6akbbbx.us-west-1.rds.amazonaws.com", port="5432", dbname="",
 #                      user="postgres", password="Demig0rg0n") as conn:

@@ -34,3 +34,5 @@ CREATE TABLE reviews (
 SELECT * FROM reviews;
 SELECT * FROM books;
 SELECT * FROM users;
+
+SELECT * FROM reviews INNER JOIN books ON reviews.isbn = books.isbn;
