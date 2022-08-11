@@ -14,14 +14,23 @@ class BookService:
 
 # Read
     def get_book(self, isbn):
-        return self.bd.get_book(isbn)
+        if isbn in self.bd.get_all_isbns():
+            return self.bd.get_book(isbn)
+        else:
+            raise InvalParam(f"Isbn not in library. Please add book to reveiw.")
 
 # Update
     def edit_book_attributes(self, book_obj):
-        return self.bd.edit_book_attributes(book_obj)
+        if book_obj.isbn in self.bd.get_all_isbns():
+            return self.bd.edit_book_attributes(book_obj)
+        else:
+            raise InvalParam(f"Isbn not in library. Please add book.")
 
     def edit_isbn(self, old_isbn, new_book_obj):
-        return self.bd.edit_isbn(old_isbn, new_book_obj)
+        if old_isbn in self.bd.get_all_isbns():
+            return self.bd.edit_isbn(old_isbn, new_book_obj)
+        else:
+            raise InvalParam(f"Isbn not in library. Please add book.")
 
 # Delete
     def delete_book(self, isbn):

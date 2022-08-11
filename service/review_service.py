@@ -12,8 +12,6 @@ class ReviewService():
     def get_reviews(self, usn, isbn):
         return self.rd.get_reviews(usn, isbn)
 
-    def get_all_reviews_for_book(self, isbn):
-        return list(map(lambda a: a.to_dict(), self.rd.get_all_reviews_for_book(isbn)))
 
 # Update
 

@@ -15,8 +15,8 @@ rd = ReviewDao()
 bd = BookDao()
 us = UserService()
 
-today = datetime.date.today()
-print(today)
+# today = datetime.date.today()
+# print(today)
 
 # u1 = User('Bren', 'tabaxi', today)
 # b1 = Book(9780786966912, "Explorer's Guide to Wildemount", "Matthew Mercer", "1", "TTRPG", "book")
@@ -28,13 +28,16 @@ print(today)
 # rd.new_review(r1)
 
 # print(ud.get_all_usernames())
-print(us.check_password('Bren', 'tabaxi'))
+# print(us.check_password('Bren', 'tabaxi'))
 #
 # with psycopg.connect(host="database-1.ccqnc6akbbbx.us-west-1.rds.amazonaws.com", port="5432", dbname="",
 #                      user="postgres", password="Demig0rg0n") as conn:
 #     print("connection successful")
 
-print(os.environ['P2HOST'])
-print(os.environ['P2PORT'])
-print(os.environ['P2USER'])
-print(os.environ['P2PW'])
+# print(os.environ['P2HOST'])
+# print(os.environ['P2PORT'])
+# print(os.environ['P2USER'])
+# print(os.environ['P2PW'])
+
+# print(us.get_user('Bren'))
+
