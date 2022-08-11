@@ -34,12 +34,23 @@ class UserService():
 
 # Update
     def update_fav_genre(self, usn, fav_genre):
-        return self.ud.update_fav_genre(usn, fav_genre)
+        if usn in self.ud.get_all_usernames():
+            return self.ud.update_fav_genre(usn, fav_genre)
+        else:
+            raise InvalParam("Username not in database.")
+
 
     def update_admin(self, usn, admin):
-        return self.ud.update_admin(usn, admin)
+        if usn in self.ud.get_all_usernames():
+            return self.ud.update_admin(usn, admin)
+        else:
+            raise InvalParam("Username not in database.")
 
 # Delete
     def delete_user(self, usn):
-        return self.ud.delete_user(usn)
+        if usn in self.ud.get_all_usernames():
+            return self.ud.delete_user(usn)
+        else:
+            raise InvalParam("Username not in database.")
+
 

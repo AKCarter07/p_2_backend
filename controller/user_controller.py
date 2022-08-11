@@ -45,8 +45,10 @@ def logout():
 def create_user():
     usn = request.form.get('username')
     pwd = request.form.get('password')
+    genre = request.form.get('fav_genre')
     joined = datetime.date.today()
     user = User(usn, pwd, joined)
+    user.set_fav_genre(genre)
     try:
         return us.create_user(user)
     except InvalParam as e:
