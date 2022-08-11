@@ -24,7 +24,14 @@ def new_review():
                        "message": f"{e}"
                    }, 400
 
+
 # Read
+
+@rc.route("/book/<isbn>/reviews")
+def get_all_reviews_for_book(isbn):
+    # args = request.args
+    # status = args.get('status')
+    return {"review": rs.get_all_reviews_for_book(isbn)}
 
 
 # Update
@@ -34,3 +41,5 @@ def new_review():
 @rc.route('/book/<review>')
 def delete_review():
     pass
+
+
