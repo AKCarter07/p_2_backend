@@ -19,6 +19,6 @@ if __name__ == '__main__':
     app.register_blueprint(bc)
     app.register_blueprint(rc)
 
-    CORS(app)
+    CORS(app, supports_credentials=True)
     Session(app)
     app.run(port=8080, debug=True)
