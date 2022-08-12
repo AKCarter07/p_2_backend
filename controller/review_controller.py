@@ -11,18 +11,20 @@ rs = ReviewService()
 # Create
 @rc.route('/book/review', methods=['POST'])
 def new_review():
-    if "user" in session:
-        isbn = request.form.get('isbn')
-        user = request.form.get('user')
-        review = request.form.get('review')
-        rating = request.form.get('rating')
-        rev = Review(isbn, user, review, rating)
-        try:
-            return rs.new_review(rev)
-        except InvalParam as e:
-            return {
-                       "message": f"{e}"
-                   }, 400
+    # if "user" in session:
+    isbn = request.form.get('isbn')
+    user = request.form.get('user')
+    review = request.form.get('review')
+    rating = request.form.get('rating')
+    author = request.form.get('author')
+    title = request.form.get('title')
+    rev = Review(isbn, author, title, user, review, rating)
+    try:
+        return rs.new_review(rev)
+    except InvalParam as e:
+        return {
+                   "message": f"{e}"
+               }, 400
 
 
 # Read
