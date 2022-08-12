@@ -21,7 +21,7 @@ class ReviewDao:
         if usn:
             call = call + f" where usr = '{usn}'"
         if isbn:
-            call = call + f" where isbn = '{isbn}'"
+            call = call + f" where reviews.isbn = '{isbn}'"
         call = call + ";"
         reviews = []
         with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
