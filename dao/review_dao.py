@@ -14,6 +14,7 @@ class ReviewDao:
             with conn.cursor() as cur:
                 cur.execute(f"INSERT INTO reviews (isbn, review, usr, rating) VALUES "
                             f"(%s, %s, %s, %s);", (rev_obj.isbn, rev_obj.review, rev_obj.user, rev_obj.rating))
+                conn.commit()
                 return f"Review for {rev_obj.isbn} added."
 
 # Read
