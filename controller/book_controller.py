@@ -20,7 +20,9 @@ def new_book():
     book = Book(isbn, title, author, edition, genre, type)
     try:
         bs.new_book(book)
-        return f"{title} added to database"
+        return {
+            "message": f"{title} added to database"
+        }, 201
     except InvalParam as e:
         return {
                    "message": f"{e}"
