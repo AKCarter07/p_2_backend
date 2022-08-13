@@ -19,6 +19,9 @@ class BookService:
         else:
             raise InvalParam(f"Isbn not in library. Please add book to reveiw.")
 
+    def get_books_by_title(self, title):
+        return self.bd.get_books_by_title(title)
+
 # Update
     def edit_book_attributes(self, book_obj):
         if book_obj.isbn in self.bd.get_all_isbns():
