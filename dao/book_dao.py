@@ -42,6 +42,27 @@ class BookDao:
                     book.set_review(rev)
                 return book
 
+    def get_books_by_title(self, title):
+        t = title.split()
+        books = []
+        call = f"SELECT * FROM books WHERE"
+        for _ in t:
+            call = call + f" title LIKE '%{_}%' OR"
+        call = call[:-3];
+        call = call + ";"
+        print(call)
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+                             password=os.environ['P2PW']) as conn:
+            with conn.cursor() as cur:
+                cur.execute(call)
+                for line in cur:
+                    book = Book(line[0], line[1], line[2], line[3], line[4], line[5])
+                    revs = self.rd.get_reviews(None, book.isbn)
+                    books.append(book)
+                    for rev in revs:
+                        book.set_review(rev)
+                return books
+
     def get_genre_list(self):
         genres = []
         with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],

@@ -39,6 +39,19 @@ def get_book(isbn):
                    "message": f"{e}"
                }, 400
 
+@bc.route('/books/<title>')
+def get_books_by_title(title):
+    try:
+        dicts = []
+        books = bs.get_books_by_title(title)
+        for book in books:
+            dicts.append(book.to_dict())
+        return dicts, 200
+    except InvalParam as e:
+        return {
+               "message": f"{e}"
+           }, 400
+
 
 # Update
 @bc.route('/books/<isbn>', methods=['PUT'])
