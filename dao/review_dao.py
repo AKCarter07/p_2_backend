@@ -9,7 +9,7 @@ class ReviewDao:
 
 # Create
     def new_review(self, rev_obj):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"INSERT INTO reviews (isbn, review, usr, rating) VALUES "
@@ -26,7 +26,7 @@ class ReviewDao:
             call = call + f" where reviews.isbn = '{isbn}'"
         call = call + ";"
         reviews = []
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(call)

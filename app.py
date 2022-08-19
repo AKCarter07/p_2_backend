@@ -5,6 +5,7 @@ from controller.user_controller import uc
 from controller.review_controller import rc
 from controller.book_controller import bc
 
+# coverage run -m pytest --verbose && coverage report 
 
 if __name__ == '__main__':
     app = Flask(__name__)
