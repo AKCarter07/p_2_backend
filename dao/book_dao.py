@@ -9,7 +9,7 @@ class BookDao:
 
     def get_all_isbns(self):
         isbns = []
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT isbn FROM books")
@@ -19,7 +19,7 @@ class BookDao:
 
 # Create
     def new_book(self, book_obj):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"INSERT INTO books (isbn, title, author, edition, genre, media_type) VALUES "
@@ -31,7 +31,7 @@ class BookDao:
 # Read
     def get_book(self, isbn):
         book = None
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT * FROM books WHERE isbn = '{isbn}';")
@@ -51,7 +51,7 @@ class BookDao:
         call = call[:-3];
         call = call + ";"
         print(call)
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(call)
@@ -65,7 +65,7 @@ class BookDao:
 
     def get_genre_list(self):
         genres = []
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT DISTINCT genre FROM books")
@@ -75,7 +75,7 @@ class BookDao:
 
 # Update
     def edit_book_attributes(self, book_obj):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"UPDATE books SET title = '{book_obj.title}', author = '{book_obj.author}',"
@@ -86,7 +86,7 @@ class BookDao:
 
     def edit_isbn(self, old_isbn, new_book_obj):
         self.new_book(new_book_obj)
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"UPDATE reviews SET isbn = '{new_book_obj.isbn}' WHERE isbn = '{old_isbn}';")
@@ -96,7 +96,7 @@ class BookDao:
 
 # Delete
     def delete_book(self, isbn):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"DELETE FROM books WHERE isbn = '{isbn}';")

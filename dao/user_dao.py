@@ -13,7 +13,7 @@ class UserDao:
 
     def get_all_usernames(self):
         users = []
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT username FROM users")
@@ -22,7 +22,7 @@ class UserDao:
                 return users
 
     def check_password(self, username, password):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT * FROM users WHERE username = '{username}' "
@@ -33,7 +33,7 @@ class UserDao:
 
 # Create
     def create_user(self, user_obj):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"INSERT INTO users (username, password, fav_genre, date_joined) "
@@ -44,10 +44,10 @@ class UserDao:
 
 # Read
     def get_user(self, usn):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
-                cur.execute(f"SELECT * FROM users WHERE username = '{usn}';")
+                cur.execute(f"SELECT * FROM users WHERE username = %s", (usn,))
                 for line in cur:
                     user = User(line[1], line[2], line[4])
                     user.set_id(line[0])
@@ -61,7 +61,7 @@ class UserDao:
 
     def get_all_users(self):
         users = []
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"SELECT * FROM users;")
@@ -79,14 +79,14 @@ class UserDao:
 
 # Update
     def update_fav_genre(self, usn, fav_genre):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"UPDATE users SET fav_genre = '{fav_genre}' WHERE username = '{usn}';")
                 conn.commit()
 
     def update_admin(self, usn, admin):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"UPDATE users SET is_admin = '{admin}' WHERE username = '{usn}';")
@@ -95,7 +95,7 @@ class UserDao:
 # Delete
 
     def delete_user(self, usn):
-        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname="", user=os.environ['P2USER'],
+        with psycopg.connect(host=os.environ['P2HOST'], port=os.environ['P2PORT'], dbname=os.environ['P2DB'], user=os.environ['P2USER'],
                              password=os.environ['P2PW']) as conn:
             with conn.cursor() as cur:
                 cur.execute(f"DELETE FROM users WHERE username = '{usn}';")
